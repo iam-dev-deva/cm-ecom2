@@ -2,15 +2,15 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 import { MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { FEATURED_PRODUCTS, RECOMMENDED_PRODUCTS, SHOP } from '@/constants/routes';
+import { IMAGES } from '@/constants/imageUrls';
 import {
   useDocumentTitle, useFeaturedProducts, useRecommendedProducts, useScrollTop
 } from '@/hooks';
-import { IMAGES } from '@/constants/imageUrls';
+import useDashboardData from '@/hooks/useDashboardData';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
-const Home = () => {
+const HomePage = () => {
   useDocumentTitle('ARUDRA | Home');
   useScrollTop();
 
@@ -26,6 +26,12 @@ const Home = () => {
     isLoading: isLoadingRecommended,
     error: errorRecommended
   } = useRecommendedProducts(6);
+
+   const {
+    dashboardData
+  } = useDashboardData();
+  const bannerImages = dashboardData?.Banner || [];
+  const heroImage = bannerImages[0]?.ImageUrl || IMAGES.homeBanner1;
 
   return (
     <main className="content">
@@ -44,7 +50,7 @@ const Home = () => {
               <ArrowRightOutlined />
             </Link>
           </div>
-          <div className="banner-img"><img src={IMAGES.homeBanner1} alt="" loading="lazy" /></div>
+          <div className="banner-img"><img src={heroImage} alt="" loading="lazy" /></div>
         </div>
         <div className="display">
           <div className="display-header">
@@ -87,4 +93,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

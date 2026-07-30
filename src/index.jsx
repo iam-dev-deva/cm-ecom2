@@ -1,7 +1,7 @@
 import { Preloader } from '@/components/common';
 import 'normalize.css/normalize.css';
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import 'react-phone-input-2/lib/style.css';
 import { onAuthStateFail, onAuthStateSuccess } from '@/redux/actions/authActions';
 import configureStore from '@/redux/store/store';
@@ -18,10 +18,11 @@ WebFont.load({
 });
 
 const { store, persistor } = configureStore();
-const root = document.getElementById('app');
+const rootElement = document.getElementById('app');
+const root = createRoot(rootElement);
 
 // Render the preloader on initial load
-render(<Preloader />, root);
+root.render(<Preloader />);
 
 // Restore the session from a stored JWT (if any), replacing Firebase's
 // onAuthStateChanged. If there's no token, or it's no longer valid,
@@ -42,7 +43,7 @@ render(<Preloader />, root);
   }
 
   // then render the app after checking the auth state
-  render(<App store={store} persistor={persistor} />, root);
+  root.render(<App store={store} persistor={persistor} />);
 })();
 
 if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {

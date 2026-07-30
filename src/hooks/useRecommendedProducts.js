@@ -1,46 +1,44 @@
-import { useDidMount } from '@/hooks';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import productService from '@/services/productService';
+import useDidMount from './useDidMount';
 
-const useRecommendedProducts = (itemsCount) => {
+const useRecommendedProducts = (itemsCount = 6) => {
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const didMount = useDidMount(true);
 
-  const fetchRecommendedProducts = async () => {
+  const fetchRecommendedProducts = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
 
       const items = await productService.getRecommendedProducts(itemsCount);
 
-      if (!items || items.length === 0) {
-        if (didMount) {
-          setError('No recommended products found.');
-          setLoading(false);
-        }
-      } else if (didMount) {
-        setRecommendedProducts(items);
+      if (didMount) {
+        setRecommendedProducts(items || []);
         setLoading(false);
       }
     } catch (e) {
       if (didMount) {
+        setRecommendedProducts([]);
         setError('Failed to fetch recommended products');
         setLoading(false);
       }
     }
-  };
+  }, [didMount, itemsCount]);
 
   useEffect(() => {
-    if (recommendedProducts.length === 0 && didMount) {
+    if (didMount && recommendedProducts.length === 0) {
       fetchRecommendedProducts();
     }
-  }, []);
-
+  }, [didMount, fetchRecommendedProducts, recommendedProducts.length]);
 
   return {
-    recommendedProducts, fetchRecommendedProducts, isLoading, error
+    recommendedProducts,
+    fetchRecommendedProducts,
+    isLoading,
+    error
   };
 };
 

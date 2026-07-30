@@ -1,10 +1,9 @@
-import { useDidMount } from '@/hooks';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import productService from '@/services/productService';
+import useDidMount from './useDidMount';
 
 const useProduct = (id) => {
-  // get and check if product exists in store
   const storeProduct = useSelector((state) => state.products.items.find((item) => item.id === id));
 
   const [product, setProduct] = useState(storeProduct);
@@ -13,20 +12,20 @@ const useProduct = (id) => {
   const didMount = useDidMount(true);
 
   useEffect(() => {
-    (async () => {
+    const loadProduct = async () => {
       try {
-        if (!product || product.id !== id) {
-          setLoading(true);
-          const data = await productService.getSingleProduct(id);
+        if (storeProduct && storeProduct.id === id) {
+          setProduct(storeProduct);
+          return;
+        }
 
-          if (data) {
-            if (didMount) {
-              setProduct(data);
-              setLoading(false);
-            }
-          } else {
-            setError('Product not found.');
-          }
+        setLoading(true);
+        setError(null);
+        const data = await productService.getSingleProduct(id);
+
+        if (didMount) {
+          setProduct(data || null);
+          setLoading(false);
         }
       } catch (err) {
         if (didMount) {
@@ -34,8 +33,10 @@ const useProduct = (id) => {
           setError(err?.message || 'Something went wrong.');
         }
       }
-    })();
-  }, [id]);
+    };
+
+    loadProduct();
+  }, [didMount, id, storeProduct]);
 
   return { product, isLoading, error };
 };

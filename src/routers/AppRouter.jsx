@@ -1,10 +1,29 @@
-import { Basket } from '@/components/basket';
-import { Footer, Navigation } from '@/components/common';
+import Basket from '@/components/basket/Basket';
+import Footer from '@/components/common/Footer';
+import Navigation from '@/components/common/Navigation';
 import * as ROUTES from '@/constants/routes';
 import { createBrowserHistory } from 'history';
 import React from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
-import * as view from '@/views';
+import AddProduct from '@/views/admin/add_product/AddProductPage';
+import AdminDashboardPage from '@/views/admin/dashboard/AdminDashboardPage';
+import EditProductPage from '@/views/admin/edit_product/EditProductPage';
+import ProductsPage from '@/views/admin/products/ProductsPage';
+import ForgotPasswordPage from '@/views/auth/forgot_password/ForgotPasswordPage';
+import SignInPage from '@/views/auth/signin/SignInPage';
+import SignUpPage from '@/views/auth/signup/SignUpPage';
+import CheckoutStep1Page from '@/views/checkout/step1/CheckoutStep1Page';
+import CheckoutStep2Page from '@/views/checkout/step2/CheckoutStep2Page';
+import CheckoutStep3Page from '@/views/checkout/step3/CheckoutStep3Page';
+import FeaturedProductsPage from '@/views/featured/FeaturedProductsPage';
+import HomePage from '@/views/home/HomePage';
+import PageNotFound from '@/views/error/PageNotFound';
+import RecommendedProductsPage from '@/views/recommended/RecommendedProductsPage';
+import SearchPage from '@/views/search/SearchPage';
+import ShopPage from '@/views/shop/ShopPage';
+import UserAccountPage from '@/views/account/user_account/UserAccountPage';
+import EditAccountPage from '@/views/account/edit_account/EditAccountPage';
+import ViewProductPage from '@/views/view_product/ViewProductPage';
 import AdminRoute from './AdminRoute';
 import ClientRoute from './ClientRoute';
 import PublicRoute from './PublicRoute';
@@ -20,87 +39,87 @@ const AppRouter = () => (
       <Basket />
       <Switch>
         <Route
-          component={view.Search}
+          component={SearchPage}
           exact
           path={ROUTES.SEARCH}
         />
         <Route
-          component={view.Home}
+          component={HomePage}
           exact
           path={ROUTES.HOME}
         />
         <Route
-          component={view.Shop}
+          component={ShopPage}
           exact
           path={ROUTES.SHOP}
         />
         <Route
-          component={view.FeaturedProducts}
+          component={FeaturedProductsPage}
           exact
           path={ROUTES.FEATURED_PRODUCTS}
         />
         <Route
-          component={view.RecommendedProducts}
+          component={RecommendedProductsPage}
           exact
           path={ROUTES.RECOMMENDED_PRODUCTS}
         />
         <PublicRoute
-          component={view.SignUp}
+          component={SignUpPage}
           path={ROUTES.SIGNUP}
         />
         <PublicRoute
-          component={view.SignIn}
+          component={SignInPage}
           exact
           path={ROUTES.SIGNIN}
         />
         <PublicRoute
-          component={view.ForgotPassword}
+          component={ForgotPasswordPage}
           path={ROUTES.FORGOT_PASSWORD}
         />
         <Route
-          component={view.ViewProduct}
+          component={ViewProductPage}
           path={ROUTES.VIEW_PRODUCT}
         />
         <ClientRoute
-          component={view.UserAccount}
+          component={UserAccountPage}
           exact
           path={ROUTES.ACCOUNT}
         />
         <ClientRoute
-          component={view.EditAccount}
+          component={EditAccountPage}
           exact
           path={ROUTES.ACCOUNT_EDIT}
         />
         <ClientRoute
-          component={view.CheckOutStep1}
+          component={CheckoutStep1Page}
           path={ROUTES.CHECKOUT_STEP_1}
         />
         <ClientRoute
-          component={view.CheckOutStep2}
+          component={CheckoutStep2Page}
           path={ROUTES.CHECKOUT_STEP_2}
         />
         <ClientRoute
-          component={view.CheckOutStep3}
+          component={CheckoutStep3Page}
           path={ROUTES.CHECKOUT_STEP_3}
         />
         <AdminRoute
-          component={view.Dashboard}
+          component={AdminDashboardPage}
           exact
           path={ROUTES.ADMIN_DASHBOARD}
         />
         <AdminRoute
-          component={view.Products}
+          component={ProductsPage}
           path={ROUTES.ADMIN_PRODUCTS}
         />
         <AdminRoute
-          component={view.AddProduct}
+          component={AddProduct}
           path={ROUTES.ADD_PRODUCT}
         />
         <AdminRoute
-          component={view.EditProduct}
+          component={EditProductPage}
           path={`${ROUTES.EDIT_PRODUCT}/:id`}
         />
-        <PublicRoute component={view.PageNotFound} />
+        <PublicRoute component={PageNotFound} />
       </Switch>
       <Footer />
     </>

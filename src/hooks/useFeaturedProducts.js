@@ -1,47 +1,45 @@
-import { useDidMount } from '@/hooks';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import productService from '@/services/productService';
+import useDidMount from './useDidMount';
 
-const useFeaturedProducts = (itemsCount) => {
+const useFeaturedProducts = (itemsCount = 6) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const didMount = useDidMount(true);
 
-  const fetchFeaturedProducts = async () => {
+  const fetchFeaturedProducts = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
 
       const apiData = await productService.getDashboardData();
-      const items = apiData.data.PopularProducts;
+      const items = apiData?.data?.PopularProducts || [];
 
-
-      if (!items || items.length === 0) {
-        if (didMount) {
-          setError('No featured products found.');
-          setLoading(false);
-        }
-      } else if (didMount) {
-        setFeaturedProducts(items);
+      if (didMount) {
+        setFeaturedProducts(items.slice(0, itemsCount));
         setLoading(false);
       }
     } catch (e) {
       if (didMount) {
+        setFeaturedProducts([]);
         setError('Failed to fetch featured products');
         setLoading(false);
       }
     }
-  };
+  }, [didMount, itemsCount]);
 
   useEffect(() => {
-    if (featuredProducts.length === 0 && didMount) {
+    if (didMount && featuredProducts.length === 0) {
       fetchFeaturedProducts();
     }
-  }, []);
+  }, [didMount, featuredProducts.length, fetchFeaturedProducts]);
 
   return {
-    featuredProducts, fetchFeaturedProducts, isLoading, error
+    featuredProducts,
+    fetchFeaturedProducts,
+    isLoading,
+    error
   };
 };
 
