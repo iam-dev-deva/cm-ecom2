@@ -33,13 +33,10 @@ const Home = () => {
         <div className="banner">
           <div className="banner-desc">
             <h1 className="text-thin">
-              <strong>See</strong>
-              &nbsp;everything with&nbsp;
-              <strong>Clarity</strong>
+              Buy Our Products Anytime
             </h1>
             <p>
-              Buying eyewear should leave you happy and good-looking, with money in your pocket.
-              Glasses, sunglasses, and contacts—we’ve got your eyes covered.
+              We provide the best products for you. You can buy our products anytime and anywhere.
             </p>
             <br />
             <Link to={SHOP} className="button">
@@ -47,7 +44,7 @@ const Home = () => {
               <ArrowRightOutlined />
             </Link>
           </div>
-          <div className="banner-img"><img src={IMAGES.bannerGirl} alt="" loading="lazy" /></div>
+          <div className="banner-img"><img src={IMAGES.homeBanner1} alt="" loading="lazy" /></div>
         </div>
         <div className="display">
           <div className="display-header">

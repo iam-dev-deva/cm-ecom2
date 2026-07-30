@@ -3,8 +3,8 @@ const IMAGES = {
   logo: '/static/logo-full.png',
   logoWordmark: '/static/logo-wordmark.png',
   bannerGuy: '/static/banner-guy.png',
-  bannerGirl: '/static/banner-girl.png',
-  bannerGirl1: '/static/banner-girl-1.png'
+  homeBanner1: '/static/banner-girl.png',
+  homeBanner11: '/static/banner-girl-1.png'
 };
 
 export { IMAGES };

@@ -9,7 +9,7 @@ const ProductFeatured = ({ product }) => {
   const onClickItem = () => {
     if (!product) return;
 
-    history.push(`/product/${product.id}`);
+    history.push(`/product/${product.ProductID}`);
   };
 
   return (
@@ -24,9 +24,9 @@ const ProductFeatured = ({ product }) => {
           ) : <Skeleton width="100%" height="100%" />}
         </div>
         <div className="product-display-details">
-          <h2>{product.name || <Skeleton width={80} />}</h2>
+          <h2>{product.ItemName || <Skeleton width={80} />}</h2>
           <p className="text-subtle text-italic">
-            {product.brand || <Skeleton width={40} />}
+            {product.BrandName || <Skeleton width={40} />}
           </p>
         </div>
       </div>
@@ -37,9 +37,9 @@ const ProductFeatured = ({ product }) => {
 ProductFeatured.propTypes = {
   product: PropType.shape({
     image: PropType.string,
-    name: PropType.string,
-    id: PropType.string,
-    brand: PropType.string
+    ItemName: PropType.string,
+    ProductID: PropType.string,
+    BrandName: PropType.string
   }).isRequired
 };
 

@@ -13,7 +13,9 @@ const useFeaturedProducts = (itemsCount) => {
       setLoading(true);
       setError('');
 
-      const items = await productService.getFeaturedProducts(itemsCount);
+      const apiData = await productService.getDashboardData();
+      const items = apiData.data.PopularProducts;
+
 
       if (!items || items.length === 0) {
         if (didMount) {

@@ -100,7 +100,15 @@ const productService = {
   },
 
   // DELETE /products/:id
-  removeProduct: (id) => api.delete(`/products/${id}`)
+  removeProduct: (id) => api.delete(`/products/${id}`),
+
+  getDashboardData: async () => {
+    const { data } = await api.get(`/Home/GetHomePageBannerDetails?CompId=1`);
+
+    return data;
+  },
+
+
 };
 
 export default productService;
