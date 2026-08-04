@@ -1,6 +1,7 @@
 import { MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useFeaturedProducts, useScrollTop } from '@/hooks';
+import useDashboardData from '@/hooks/useDashboardData';
 import { IMAGES } from '@/constants/imageUrls';
 import React from 'react';
 
@@ -14,6 +15,9 @@ const FeaturedProducts = () => {
     isLoading,
     error
   } = useFeaturedProducts();
+  const { dashboardData } = useDashboardData();
+  const bannerImage = dashboardData?.Banner?.[1]?.BannerFile || IMAGES.homeBanner1;
+
 
   return (
     <main className="content">
@@ -23,7 +27,7 @@ const FeaturedProducts = () => {
             <h1>Featured Products</h1>
           </div>
           <div className="banner-img">
-            <img src={IMAGES.bannerGuy} alt="" loading="lazy" />
+            <img src={bannerImage} alt="" loading="lazy" />
           </div>
         </div>
         <div className="display">

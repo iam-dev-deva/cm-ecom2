@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import productService from '@/services/productService';
 import useDidMount from './useDidMount';
 
-const useFeaturedProducts = (itemsCount = 6) => {
+const useFeaturedProducts = (itemsCount = 20) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');

@@ -18,7 +18,7 @@ const Footer = () => {
           <span>
             Developed by
             {' '}
-            <a href="#">CircleMark</a>
+            <a href="#">CircleMark technologies</a>
           </span>
         </strong>
       </div>

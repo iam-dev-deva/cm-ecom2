@@ -16,7 +16,7 @@ const ProductGrid = ({ products }) => {
         />
       )) : products.map((product) => (
         <ProductItem
-          key={product.id}
+          key={product.ProductID}
           isItemOnBasket={isItemOnBasket}
           addToBasket={addToBasket}
           product={product}

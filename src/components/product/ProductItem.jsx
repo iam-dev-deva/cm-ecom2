@@ -12,12 +12,14 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
   const onClickItem = () => {
     if (!product) return;
 
-    if (product.id) {
-      history.push(`/product/${product.id}`);
+    if (product.ProductID) {
+      history.push(`/product/${product.ProductID}`);
     }
   };
+  console.log(product);
+  
 
-  const itemOnBasket = isItemOnBasket ? isItemOnBasket(product.id) : false;
+  const itemOnBasket = isItemOnBasket ? isItemOnBasket(product.ProductID) : false;
 
   const handleAddToBasket = () => {
     if (addToBasket) addToBasket({ ...product, selectedSize: product.sizes[0] });
@@ -26,7 +28,7 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
   return (
     <SkeletonTheme color="#e1e1e1" highlightColor="#f2f2f2">
       <div
-        className={`product-card ${!product.id ? 'product-loading' : ''}`}
+        className={`product-card ${!product.ProductID ? 'product-loading' : ''}`}
         style={{
           border: product && itemOnBasket ? '1px solid #a6a5a5' : '',
           boxShadow: product && itemOnBasket ? '0 10px 15px rgba(0, 0, 0, .07)' : 'none'
@@ -43,7 +45,7 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
               <ImageLoader
                 alt={product.name}
                 className="product-card-img"
-                src={product.image}
+                src={product.FrontImageFile}
               />
             ) : <Skeleton width="100%" height="90%" />}
           </div>
@@ -59,7 +61,7 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
             </h4>
           </div>
         </div>
-        {product.id && (
+        {product.ProductID && (
           <button
             className={`product-card-button button-small button button-block ${itemOnBasket ? 'button-border button-border-gray' : ''}`}
             onClick={handleAddToBasket}

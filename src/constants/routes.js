@@ -2,6 +2,7 @@ export const HOME = '/';
 export const SHOP = '/shop';
 export const FEATURED_PRODUCTS = '/featured';
 export const RECOMMENDED_PRODUCTS = '/recommended';
+export const CATEGORY_PRODUCTS = '/category/:categoryName';
 export const ACCOUNT = '/account';
 export const ACCOUNT_EDIT = '/account/edit';
 export const ADMIN_DASHBOARD = '/admin/dashboard';

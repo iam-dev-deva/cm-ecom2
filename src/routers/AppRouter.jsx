@@ -17,6 +17,7 @@ import CheckoutStep2Page from '@/views/checkout/step2/CheckoutStep2Page';
 import CheckoutStep3Page from '@/views/checkout/step3/CheckoutStep3Page';
 import FeaturedProductsPage from '@/views/featured/FeaturedProductsPage';
 import HomePage from '@/views/home/HomePage';
+import CategoryProductsPage from '@/views/category/CategoryProductsPage';
 import PageNotFound from '@/views/error/PageNotFound';
 import RecommendedProductsPage from '@/views/recommended/RecommendedProductsPage';
 import SearchPage from '@/views/search/SearchPage';
@@ -62,6 +63,10 @@ const AppRouter = () => (
           component={RecommendedProductsPage}
           exact
           path={ROUTES.RECOMMENDED_PRODUCTS}
+        />
+        <Route
+          component={CategoryProductsPage}
+          path={ROUTES.CATEGORY_PRODUCTS}
         />
         <PublicRoute
           component={SignUpPage}

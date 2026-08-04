@@ -13,7 +13,9 @@ const useRecommendedProducts = (itemsCount = 6) => {
       setLoading(true);
       setError('');
 
-      const items = await productService.getRecommendedProducts(itemsCount);
+      const apiData = await productService.getDashboardData();
+      const items = apiData?.data?.NewArrivals || [];
+      // const items = await productService.getRecommendedProducts(itemsCount);
 
       if (didMount) {
         setRecommendedProducts(items || []);

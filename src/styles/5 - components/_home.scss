@@ -10,3 +10,75 @@
 .featured {
     width: 100%;
 }
+.category-scroll-row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 8px 4px 16px;
+  scrollbar-width: thin;
+}
+
+.category-scroll-row::-webkit-scrollbar {
+  height: 6px;
+}
+
+.category-scroll-row::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+  border-radius: 3px;
+}
+
+.category-card {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 84px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.category-card-image {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f2f2f2;
+  border: 1px solid #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.category-card:hover .category-card-image {
+  transform: scale(1.06);
+  border-color: #ccc;
+}
+
+.category-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.category-card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+  color: #888;
+}
+
+.category-card-label {
+  margin-top: 8px;
+  font-size: 13px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 84px;
+}

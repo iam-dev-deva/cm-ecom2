@@ -7,8 +7,9 @@ import {
   useDocumentTitle, useFeaturedProducts, useRecommendedProducts, useScrollTop
 } from '@/hooks';
 import useDashboardData from '@/hooks/useDashboardData';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import productService from '@/services/productService';
 
 const HomePage = () => {
   useDocumentTitle('ARUDRA | Home');
@@ -27,11 +28,12 @@ const HomePage = () => {
     error: errorRecommended
   } = useRecommendedProducts(6);
 
-   const {
+  const {
     dashboardData
   } = useDashboardData();
   const bannerImages = dashboardData?.Banner || [];
-  const heroImage = bannerImages[0]?.ImageUrl || IMAGES.homeBanner1;
+  const heroImage = bannerImages[0]?.BannerFile || IMAGES.homeBanner1;
+  const categories = dashboardData?.Categories || [];
 
   return (
     <main className="content">
@@ -51,6 +53,38 @@ const HomePage = () => {
             </Link>
           </div>
           <div className="banner-img"><img src={heroImage} alt="" loading="lazy" /></div>
+        </div>
+        <div className="display">
+          <div className="display-header">
+            <h1>Categories</h1>
+          </div>
+
+          <div className="category-scroll-row">
+            {categories.slice(0, 8).map((category) => (
+              <Link
+                key={category.CategoryId || category.CategoryName}
+                to={`/category/${encodeURIComponent(category.name || category.CategoryName)}`}
+                className="category-card"
+              >
+                <div className="category-card-image">
+                  {category.CategoryFile ? (
+                    <img
+                      src={category.CategoryFile}
+                      alt={category.name || category.CategoryName}
+                    />
+                  ) : (
+                    <div className="category-card-placeholder">
+                      {(category.name || category.CategoryName)?.charAt(0)}
+                    </div>
+                  )}
+                </div>
+                <span className="category-card-label">
+                  {category.name || category.CategoryName}
+                </span>
+              </Link>
+            ))}
+          </div>
+
         </div>
         <div className="display">
           <div className="display-header">

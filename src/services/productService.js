@@ -75,6 +75,22 @@ const productService = {
     return data.products;
   },
 
+  // GET /categories -> { categories }
+  getCategories: async () => {
+    const { data } = await api.get('/categories');
+
+    return data.categories || data || [];
+  },
+
+  // GET /products?category= -> { products }
+  getProductsByCategory: async (categoryName, itemsCount = 24) => {
+    const { data } = await api.get('/products', {
+      params: { category: categoryName, limit: itemsCount }
+    });
+
+    return data.products || [];
+  },
+
   // POST /products (multipart) -> created product
   addProduct: async (product) => {
     const formData = buildProductFormData(product);
