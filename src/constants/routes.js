@@ -1,6 +1,7 @@
 export const HOME = '/';
 export const SHOP = '/shop';
 export const FEATURED_PRODUCTS = '/featured';
+export const NEW_PRODUCTS = '/new-products';
 export const RECOMMENDED_PRODUCTS = '/recommended';
 export const CATEGORY_PRODUCTS = '/category/:categoryName';
 export const ACCOUNT = '/account';

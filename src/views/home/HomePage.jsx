@@ -1,10 +1,10 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
-import { FEATURED_PRODUCTS, RECOMMENDED_PRODUCTS, SHOP } from '@/constants/routes';
+import { FEATURED_PRODUCTS, RECOMMENDED_PRODUCTS, SHOP ,NEW_PRODUCTS} from '@/constants/routes';
 import { IMAGES } from '@/constants/imageUrls';
 import {
-  useDocumentTitle, useFeaturedProducts, useRecommendedProducts, useScrollTop
+  useDocumentTitle, useFeaturedProducts,useNewProducts, useRecommendedProducts, useScrollTop
 } from '@/hooks';
 import useDashboardData from '@/hooks/useDashboardData';
 import React, { useEffect, useState } from 'react';
@@ -15,6 +15,12 @@ const HomePage = () => {
   useDocumentTitle('ARUDRA | Home');
   useScrollTop();
 
+  const {
+    newProducts,
+    fetchNewProducts,
+    isLoading: isLoadingNewProducts,
+    error: errorNewProducts
+  } = useNewProducts(6);
   const {
     featuredProducts,
     fetchFeaturedProducts,
@@ -88,6 +94,24 @@ const HomePage = () => {
         </div>
         <div className="display">
           <div className="display-header">
+            <h1>New Arrivals</h1>
+            <Link to={NEW_PRODUCTS}>See All</Link>
+          </div>
+          {(errorNewProducts && !isLoadingNewProducts) ? (
+            <MessageDisplay
+              message={errorNewProducts}
+              action={fetchNewProducts}
+              buttonLabel="Try Again"
+            />
+          ) : (
+            <ProductShowcaseGrid
+              products={newProducts}
+              skeletonCount={6}
+            />
+          )}
+        </div>
+        <div className="display">
+          <div className="display-header">
             <h1>Featured Products</h1>
             <Link to={FEATURED_PRODUCTS}>See All</Link>
           </div>
@@ -106,7 +130,7 @@ const HomePage = () => {
         </div>
         <div className="display">
           <div className="display-header">
-            <h1>Recommended Products</h1>
+            <h1>Products on Offer</h1>
             <Link to={RECOMMENDED_PRODUCTS}>See All</Link>
           </div>
           {(errorRecommended && !isLoadingRecommended) ? (
