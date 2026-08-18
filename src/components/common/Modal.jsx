@@ -5,8 +5,8 @@ import AppModal from 'react-modal';
 const Modal = ({
   isOpen,
   onRequestClose,
-  afterOpenModal,
-  overrideStyle,
+  afterOpenModal = () => { },
+  overrideStyle = {},
   children
 }) => {
   const defaultStyle = {
@@ -42,11 +42,6 @@ const Modal = ({
       {children}
     </AppModal>
   );
-};
-
-Modal.defaultProps = {
-  overrideStyle: {},
-  afterOpenModal: () => { }
 };
 
 Modal.propTypes = {

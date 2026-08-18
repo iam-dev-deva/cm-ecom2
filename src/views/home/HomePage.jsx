@@ -1,10 +1,10 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
-import { FEATURED_PRODUCTS, RECOMMENDED_PRODUCTS, SHOP ,NEW_PRODUCTS} from '@/constants/routes';
+import { FEATURED_PRODUCTS, RECOMMENDED_PRODUCTS, SHOP, NEW_PRODUCTS } from '@/constants/routes';
 import { IMAGES } from '@/constants/imageUrls';
 import {
-  useDocumentTitle, useFeaturedProducts,useNewProducts, useRecommendedProducts, useScrollTop
+  useDocumentTitle, useFeaturedProducts, useNewProducts, useRecommendedProducts, useScrollTop
 } from '@/hooks';
 import useDashboardData from '@/hooks/useDashboardData';
 import React, { useEffect, useState } from 'react';
@@ -35,11 +35,16 @@ const HomePage = () => {
   } = useRecommendedProducts(6);
 
   const {
-    dashboardData
+    dashboardData,
+    isLoading: isLoadingDashboard
   } = useDashboardData();
   const bannerImages = dashboardData?.Banner || [];
   const heroImage = bannerImages[0]?.BannerFile || IMAGES.homeBanner1;
   const categories = dashboardData?.Categories || [];
+  const categoryProductSections = categories
+    .filter((category) => Array.isArray(category.Products) && category.Products.length > 0)
+    .slice(0, 3);
+  const showCategorySkeleton = isLoadingDashboard || dashboardData === null;
 
   return (
     <main className="content">
@@ -66,32 +71,81 @@ const HomePage = () => {
           </div>
 
           <div className="category-scroll-row">
-            {categories.slice(0, 8).map((category) => (
-              <Link
-                key={category.CategoryId || category.CategoryName}
-                to={`/category/${encodeURIComponent(category.name || category.CategoryName)}`}
-                className="category-card"
-              >
-                <div className="category-card-image">
-                  {category.CategoryFile ? (
-                    <img
-                      src={category.CategoryFile}
-                      alt={category.name || category.CategoryName}
-                    />
-                  ) : (
-                    <div className="category-card-placeholder">
-                      {(category.name || category.CategoryName)?.charAt(0)}
+            {showCategorySkeleton ? (
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '120px',
+                width: '100%'
+              }}>
+                <div className="spinner" style={{
+                  width: '32px',
+                  height: '32px',
+                  border: '4px solid rgba(0,0,0,0.1)',
+                  borderTop: '4px solid #c0392b',
+                  borderRadius: '50%',
+                  animation: 'spin 0.8s linear infinite'
+                }} />
+              </div>
+            ) : (
+              categories.slice(0, 8).map((category) => {
+                const categoryId = category.CategoryId ?? category.CategoryID ?? category.id ?? category.categoryId;
+                const categoryName = category.name || category.CategoryName;
+                const categoryLink = categoryId != null
+                  ? `/category/${encodeURIComponent(String(categoryId))}/${encodeURIComponent(categoryName)}`
+                  : `/category/${encodeURIComponent(categoryName)}`;
+
+                return (
+                  <Link
+                    key={categoryId ?? categoryName}
+                    to={categoryLink}
+                    className="category-card"
+                  >
+                    <div className="category-card-image">
+                      {category.CategoryFile ? (
+                        <img
+                          src={category.CategoryFile}
+                          alt={categoryName}
+                        />
+                      ) : (
+                        <div className="category-card-placeholder">
+                          {categoryName?.charAt(0)}
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-                <span className="category-card-label">
-                  {category.name || category.CategoryName}
-                </span>
-              </Link>
-            ))}
+                    <span className="category-card-label">
+                      {categoryName}
+                    </span>
+                  </Link>
+                );
+              })
+            )}
           </div>
 
         </div>
+
+        {categoryProductSections.map((category) => {
+          const categoryName = category.name || category.CategoryName;
+          const categoryProducts = category.Products || [];
+
+          return (
+            <div className="display" key={category.CategoryId || categoryName}>
+              <div className="display-header">
+                <h1>{categoryName}</h1>
+                <Link to={`/category/${encodeURIComponent(String(category.CategoryId ?? categoryName))}/${encodeURIComponent(categoryName)}`}>
+                  See All
+                </Link>
+              </div>
+              <ProductShowcaseGrid
+                products={categoryProducts.slice(0, 6)}
+                skeletonCount={6}
+                isLoading={false}
+              />
+            </div>
+          );
+        })}
+
         <div className="display">
           <div className="display-header">
             <h1>New Arrivals</h1>
@@ -107,6 +161,7 @@ const HomePage = () => {
             <ProductShowcaseGrid
               products={newProducts}
               skeletonCount={6}
+              isLoading={isLoadingNewProducts}
             />
           )}
         </div>
@@ -125,6 +180,7 @@ const HomePage = () => {
             <ProductShowcaseGrid
               products={featuredProducts}
               skeletonCount={6}
+              isLoading={isLoadingFeatured}
             />
           )}
         </div>
@@ -143,6 +199,7 @@ const HomePage = () => {
             <ProductShowcaseGrid
               products={recommendedProducts}
               skeletonCount={6}
+              isLoading={isLoadingRecommended}
             />
           )}
         </div>

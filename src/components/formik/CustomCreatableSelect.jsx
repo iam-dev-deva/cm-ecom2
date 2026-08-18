@@ -7,7 +7,13 @@ import CreatableSelect from 'react-select/creatable';
 const CustomCreatableSelect = (props) => {
   const [field, meta, helpers] = useField(props);
   const {
-    options, defaultValue, label, placeholder, isMulti, type, iid
+    options = [],
+    defaultValue,
+    label,
+    placeholder = '',
+    isMulti = false,
+    type = 'string',
+    iid = ''
   } = props;
   const { touched, error } = meta;
   const { setValue } = helpers;
@@ -62,14 +68,6 @@ const CustomCreatableSelect = (props) => {
       />
     </div>
   );
-};
-
-CustomCreatableSelect.defaultProps = {
-  isMulti: false,
-  placeholder: '',
-  iid: '',
-  options: [],
-  type: 'string'
 };
 
 CustomCreatableSelect.propTypes = {

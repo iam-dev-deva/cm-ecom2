@@ -14,7 +14,12 @@ const sliderStyle = {
 };
 
 const PriceRange = ({
-  min, max, initMin, initMax, productsCount, onPriceChange
+  min,
+  max,
+  initMin = undefined,
+  initMax = undefined,
+  productsCount,
+  onPriceChange
 }) => {
   const [state, setState] = useState({
     domain: [min, max],
@@ -118,11 +123,6 @@ const PriceRange = ({
       </Slider>
     </div>
   );
-};
-
-PriceRange.defaultProps = {
-  initMin: undefined,
-  initMax: undefined
 };
 
 PriceRange.propTypes = {

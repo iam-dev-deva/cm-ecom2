@@ -2,7 +2,7 @@ import PropType from 'prop-types';
 import React from 'react';
 
 const Track = ({
-  source, target, getTrackProps, disabled
+  source, target, getTrackProps, disabled = false
 }) => (
   <div
     style={{
@@ -35,10 +35,5 @@ Track.propTypes = {
   getTrackProps: PropType.func.isRequired,
   disabled: PropType.bool
 };
-
-Track.defaultProps = {
-  disabled: false
-};
-
 
 export default Track;

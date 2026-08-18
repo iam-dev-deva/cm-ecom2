@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 // Persist loaded image state across component instances
 const loadedImages = {};
 
-const ImageLoader = ({ src, alt, className }) => {
+const ImageLoader = ({ src, alt, className='image-loader' }) => {
   const [loaded, setLoaded] = useState(!!loadedImages[src]);
 
   const onLoad = () => {
@@ -40,10 +40,6 @@ const ImageLoader = ({ src, alt, className }) => {
       />
     </>
   );
-};
-
-ImageLoader.defaultProps = {
-  className: 'image-loader'
 };
 
 ImageLoader.propTypes = {

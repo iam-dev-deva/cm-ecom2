@@ -8,7 +8,10 @@ import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 const PrivateRoute = ({
-  isAuth, role, component: Component, ...rest
+  isAuth = false,
+  role = 'USER',
+  component: Component,
+  ...rest
 }) => (
   <Route
     {...rest}
@@ -36,11 +39,6 @@ const PrivateRoute = ({
     }}
   />
 );
-
-PrivateRoute.defaultProps = {
-  isAuth: false,
-  role: 'USER'
-};
 
 PrivateRoute.propTypes = {
   isAuth: PropType.bool,

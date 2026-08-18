@@ -8,7 +8,11 @@ import { getProducts } from '@/redux/actions/productActions';
 
 const ProductList = (props) => {
   const {
-    products, filteredProducts, isLoading, requestStatus, children
+    products,
+    filteredProducts,
+    isLoading,
+    requestStatus = null,
+    children
   } = props;
   const [isFetching, setFetching] = useState(false);
   const dispatch = useDispatch();
@@ -62,10 +66,6 @@ const ProductList = (props) => {
       )}
     </Boundary>
   );
-};
-
-ProductList.defaultProps = {
-  requestStatus: null
 };
 
 ProductList.propTypes = {

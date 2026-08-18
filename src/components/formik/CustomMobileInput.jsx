@@ -6,7 +6,11 @@ import PhoneInput from 'react-phone-input-2';
 
 const CustomMobileInput = (props) => {
   const [field, meta, helpers] = useField(props);
-  const { label, placeholder, defaultValue } = props;
+  const {
+    label = 'Mobile Number',
+    placeholder = '09254461351',
+    defaultValue
+  } = props;
   const { touched, error } = meta;
   const { setValue } = helpers;
 
@@ -42,11 +46,6 @@ const CustomMobileInput = (props) => {
       />
     </div>
   );
-};
-
-CustomMobileInput.defaultProps = {
-  label: 'Mobile Number',
-  placeholder: '09254461351'
 };
 
 CustomMobileInput.propTypes = {

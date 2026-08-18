@@ -7,7 +7,11 @@ import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 const PublicRoute = ({
-  isAuth, role, component: Component, path, ...rest
+  isAuth = false,
+  role = 'USER',
+  component: Component,
+  path = '/',
+  ...rest
 }) => (
   <Route
     {...rest}
@@ -32,12 +36,6 @@ const PublicRoute = ({
     }}
   />
 );
-
-PublicRoute.defaultProps = {
-  isAuth: false,
-  role: 'USER',
-  path: '/'
-};
 
 PublicRoute.propTypes = {
   isAuth: PropType.bool,

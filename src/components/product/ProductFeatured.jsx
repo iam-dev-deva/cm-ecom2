@@ -39,7 +39,7 @@ ProductFeatured.propTypes = {
   product: PropType.shape({
     FrontImageFile: PropType.string,
     ItemName: PropType.string,
-    ProductID: PropType.string,
+    ProductID: PropType.number,
     BrandName: PropType.string,
     MRP: PropType.number,
     Rate: PropType.number

@@ -88,12 +88,6 @@ class TooltipRail extends Component {
   }
 }
 
-TooltipRail.defaultProps = {
-  getEventData: undefined,
-  activeHandleID: undefined,
-  disabled: false
-};
-
 TooltipRail.propTypes = {
   getEventData: PropType.func,
   activeHandleID: PropType.string,

@@ -4,7 +4,7 @@ import PropType from 'prop-types';
 import React from 'react';
 
 const CustomInput = ({
-  field, form: { touched, errors }, label, inputRef, ...props
+  field, form: { touched, errors }, label, inputRef = undefined, ...props
 }) => (
   <div className="input-group">
     {touched[field.name] && errors[field.name] ? (
@@ -22,10 +22,6 @@ const CustomInput = ({
     />
   </div>
 );
-
-CustomInput.defaultProps = {
-  inputRef: undefined
-};
 
 CustomInput.propTypes = {
   label: PropType.string.isRequired,

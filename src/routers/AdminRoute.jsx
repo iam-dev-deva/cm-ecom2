@@ -7,7 +7,10 @@ import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 const AdminRoute = ({
-  isAuth, role, component: Component, ...rest
+  isAuth = false,
+  role = 'USER',
+  component: Component,
+  ...rest
 }) => (
   <Route
     {...rest}
@@ -31,11 +34,6 @@ const mapStateToProps = ({ auth }) => ({
   isAuth: !!auth,
   role: auth?.role || ''
 });
-
-AdminRoute.defaultProps = {
-  isAuth: false,
-  role: 'USER'
-};
 
 AdminRoute.propTypes = {
   isAuth: PropType.bool,

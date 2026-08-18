@@ -82,10 +82,28 @@ const productService = {
     return data.categories || data || [];
   },
 
-  // GET /products?category= -> { products }
-  getProductsByCategory: async (categoryName, itemsCount = 24) => {
+  // GET https://rudra.circlemark.in/ProductServices/api/Home/GetHomePageProductDetails?compid=1&categoryid= -> products
+  getProductsByCategory: async (categoryId, itemsCount = 24) => {
+    const categoryKey = Number(categoryId);
+
+    if (!Number.isNaN(categoryKey) && categoryKey > 0) {
+      const { data } = await api.get('https://rudra.circlemark.in/ProductServices/api/Home/GetHomePageProductDetails', {
+        params: { compid: 1, categoryid: categoryKey }
+      });
+
+      const items = Array.isArray(data?.Data)
+        ? data.Data
+        : Array.isArray(data)
+          ? data
+          : Array.isArray(data?.data)
+            ? data.data
+            : [];
+
+      return items.slice(0, itemsCount);
+    }
+
     const { data } = await api.get('/products', {
-      params: { category: categoryName, limit: itemsCount }
+      params: { category: categoryId, limit: itemsCount }
     });
 
     return data.products || [];

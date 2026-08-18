@@ -68,6 +68,10 @@ const AppRouter = () => (
           component={CategoryProductsPage}
           path={ROUTES.CATEGORY_PRODUCTS}
         />
+        <Route
+          component={CategoryProductsPage}
+          path={ROUTES.LEGACY_CATEGORY_PRODUCTS}
+        />
         <PublicRoute
           component={SignUpPage}
           path={ROUTES.SIGNUP}

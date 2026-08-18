@@ -2,7 +2,10 @@ import PropType from 'prop-types';
 import React from 'react';
 
 const MessageDisplay = ({
-  message, description, buttonLabel, action
+  message,
+  description,
+  buttonLabel = 'Okay',
+  action
 }) => (
   <div className="loader">
     <h2 className="text-center" style={{ wordBreak: 'break-all' }}>{message || 'Message'}</h2>
@@ -19,12 +22,6 @@ const MessageDisplay = ({
     )}
   </div>
 );
-
-MessageDisplay.defaultProps = {
-  description: undefined,
-  buttonLabel: 'Okay',
-  action: undefined
-};
 
 MessageDisplay.propTypes = {
   message: PropType.string.isRequired,

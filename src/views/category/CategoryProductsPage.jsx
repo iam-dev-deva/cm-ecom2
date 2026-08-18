@@ -7,12 +7,14 @@ import productService from '@/services/productService';
 import { HOME } from '@/constants/routes';
 
 const CategoryProductsPage = () => {
-  const { categoryName } = useParams();
+  const { categoryId, categoryName } = useParams();
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useDocumentTitle(`${decodeURIComponent(categoryName || 'Category')} | ARUDRA`);
+  const normalizedCategoryName = decodeURIComponent(categoryName || 'Category');
+
+  useDocumentTitle(`${normalizedCategoryName} | ARUDRA`);
   useScrollTop();
 
   useEffect(() => {
@@ -20,7 +22,9 @@ const CategoryProductsPage = () => {
       try {
         setLoading(true);
         setError('');
-        const items = await productService.getProductsByCategory(decodeURIComponent(categoryName || ''), 24);
+
+        const categoryKey = categoryId || decodeURIComponent(categoryName || '');
+        const items = await productService.getProductsByCategory(categoryKey, 24);
         setProducts(items || []);
       } catch (e) {
         setError(e?.message || 'Failed to load category products');
@@ -30,17 +34,17 @@ const CategoryProductsPage = () => {
       }
     };
 
-    if (categoryName) {
+    if (categoryId || categoryName) {
       loadCategoryProducts();
     }
-  }, [categoryName]);
+  }, [categoryId, categoryName]);
 
   return (
     <main className="content">
       <div className="featured">
         <div className="banner">
           <div className="banner-desc">
-            <h1>{decodeURIComponent(categoryName || 'Category')}</h1>
+            <h1>{normalizedCategoryName}</h1>
             <p>Products in this category</p>
             <br />
             <Link to={HOME} className="button">
@@ -59,6 +63,7 @@ const CategoryProductsPage = () => {
               <ProductShowcaseGrid
                 products={products}
                 skeletonCount={6}
+                isLoading={isLoading}
               />
             )}
           </div>

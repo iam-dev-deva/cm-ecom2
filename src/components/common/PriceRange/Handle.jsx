@@ -24,7 +24,7 @@ class Handle extends Component {
       domain: [min, max],
       handle: { id, value, percent },
       isActive,
-      disabled,
+      disabled = false,
       getHandleProps
     } = this.props;
     const { mouseOver } = this.state;
@@ -103,10 +103,6 @@ Handle.propTypes = {
   getHandleProps: PropType.func.isRequired,
   isActive: PropType.bool.isRequired,
   disabled: PropType.bool
-};
-
-Handle.defaultProps = {
-  disabled: false
 };
 
 export default Handle;

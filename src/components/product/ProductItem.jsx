@@ -6,7 +6,11 @@ import React from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useHistory } from 'react-router-dom';
 
-const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
+const ProductItem = ({
+  product,
+  isItemOnBasket = undefined,
+  addToBasket = undefined
+}) => {
   const history = useHistory();
 
   const onClickItem = () => {
@@ -74,11 +78,6 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
       </div>
     </SkeletonTheme>
   );
-};
-
-ProductItem.defaultProps = {
-  isItemOnBasket: undefined,
-  addToBasket: undefined
 };
 
 ProductItem.propTypes = {
