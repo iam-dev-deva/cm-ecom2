@@ -1,6 +1,6 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { MessageDisplay } from '@/components/common';
-import { ProductShowcaseGrid } from '@/components/product';
+import { ProductSlider } from '@/components/product';
 import { FEATURED_PRODUCTS, RECOMMENDED_PRODUCTS, SHOP, NEW_PRODUCTS } from '@/constants/routes';
 import { IMAGES } from '@/constants/imageUrls';
 import {
@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 import productService from '@/services/productService';
 
 const HomePage = () => {
+  const [activeBannerIndex, setActiveBannerIndex] = useState(0);
+
   useDocumentTitle('ARUDRA | Home');
   useScrollTop();
 
@@ -39,8 +41,18 @@ const HomePage = () => {
     isLoading: isLoadingDashboard
   } = useDashboardData();
   const bannerImages = dashboardData?.Banner || [];
-  const heroImage = bannerImages[0]?.BannerFile || IMAGES.homeBanner1;
+  const heroImage = bannerImages[activeBannerIndex]?.BannerFile || IMAGES.homeBanner1;
   const categories = dashboardData?.Categories || [];
+
+  useEffect(() => {
+    if (bannerImages.length <= 1) return undefined;
+
+    const sliderTimer = setInterval(() => {
+      setActiveBannerIndex((prevIndex) => (prevIndex + 1) % bannerImages.length);
+    }, 4000);
+
+    return () => clearInterval(sliderTimer);
+  }, [bannerImages.length]);
   const categoryProductSections = categories
     .filter((category) => Array.isArray(category.Products) && category.Products.length > 0)
     .slice(0, 3);
@@ -50,7 +62,7 @@ const HomePage = () => {
     <main className="content">
       <div className="home">
         <div className="banner">
-          <div className="banner-desc">
+          {/* <div className="banner-desc">
             <h1 className="text-thin">
               Buy Our Products Anytime
             </h1>
@@ -62,8 +74,23 @@ const HomePage = () => {
               Shop Now &nbsp;
               <ArrowRightOutlined />
             </Link>
+          </div> */}
+          <div className="banner-img">
+            <img src={heroImage} alt="Promotional banner" loading="lazy" />
+            {bannerImages.length > 1 && (
+              <div className="banner-slider-dots" aria-label="Banner slider pagination">
+                {bannerImages.map((banner, index) => (
+                  <button
+                    key={banner.BannerFile || `banner-${index}`}
+                    type="button"
+                    className={`banner-slider-dot ${index === activeBannerIndex ? 'active' : ''}`}
+                    onClick={() => setActiveBannerIndex(index)}
+                    aria-label={`Show banner ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-          <div className="banner-img"><img src={heroImage} alt="" loading="lazy" /></div>
         </div>
         <div className="display">
           <div className="display-header">
@@ -137,7 +164,7 @@ const HomePage = () => {
                   See All
                 </Link>
               </div>
-              <ProductShowcaseGrid
+              <ProductSlider
                 products={categoryProducts.slice(0, 6)}
                 skeletonCount={6}
                 isLoading={false}
@@ -158,7 +185,7 @@ const HomePage = () => {
               buttonLabel="Try Again"
             />
           ) : (
-            <ProductShowcaseGrid
+            <ProductSlider
               products={newProducts}
               skeletonCount={6}
               isLoading={isLoadingNewProducts}
@@ -177,7 +204,7 @@ const HomePage = () => {
               buttonLabel="Try Again"
             />
           ) : (
-            <ProductShowcaseGrid
+            <ProductSlider
               products={featuredProducts}
               skeletonCount={6}
               isLoading={isLoadingFeatured}
@@ -196,7 +223,7 @@ const HomePage = () => {
               buttonLabel="Try Again"
             />
           ) : (
-            <ProductShowcaseGrid
+            <ProductSlider
               products={recommendedProducts}
               skeletonCount={6}
               isLoading={isLoadingRecommended}
