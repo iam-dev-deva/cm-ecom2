@@ -58,7 +58,7 @@ const ViewProduct = () => {
         <div className="loader">
           <h4>Loading Product...</h4>
           <br />
-          <LoadingOutlined style={{ fontSize: '3rem' }} />
+          <LoadingOutlined style={{ fontSize: '30px' }} />
         </div>
       )}
       {error && (
@@ -142,7 +142,7 @@ const ViewProduct = () => {
               </div>
             </div>
           </div>
-          <div style={{ marginTop: '10rem' }}>
+          <div style={{ marginTop: '100px' }}>
             <div className="display-header">
               <h1>Recommended</h1>
               <Link to={RECOMMENDED_PRODUCTS}>See All</Link>

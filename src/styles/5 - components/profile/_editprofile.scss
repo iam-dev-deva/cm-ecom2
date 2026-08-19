@@ -31,8 +31,8 @@
 //   right: 0;
 //   top: 0;
 //   bottom: 0;
-//   width: 3rem;
-//   height: 3rem;
+//   width: 30px;
+//   height: 30px;
 //   border-radius: 50%;
 //   background: $black;
 //   color: $white;
@@ -42,8 +42,8 @@
   padding: $s-size;
   position: absolute;
   bottom: -10px;
-  width: 3rem;
-  height: 3rem;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   padding: 0;
   display: flex;
@@ -59,7 +59,7 @@
 }
 
 .edit-banner-button {
-  right: 2rem;
+  right: 20px;
 }
 
 .edit-user-action {

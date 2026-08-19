@@ -3,7 +3,7 @@
   animation: slide-up .5s ease;
 
   @include mobile {
-    margin-top: 2rem;
+    margin-top: 20px;
   }
 }
 
@@ -13,12 +13,12 @@
   position: sticky;
   top: $nav-height;
   background: $background-color;
-  padding: 1rem 0;
-  margin-bottom: 3rem;
+  padding: 10px 0;
+  margin-bottom: 30px;
   z-index: 1;
 
   @include mobile {
-    top: 5rem;
+    top: 50px;
   }
 }
 
@@ -28,7 +28,7 @@
   // justify-content: center;
 
   .basket-item {
-    margin: .5rem 1rem;
+    margin: 5px 10px;
 
     @include mobile {
       margin: 0;
@@ -128,7 +128,7 @@
 }
 
 .checkout-step-1 {
-  width: 80rem;
+  width: 800px;
   margin: auto;
 
   @include tablet {
@@ -137,7 +137,7 @@
 }
 
 .checkout-step-2 {
-  width: 70rem;
+  width: 700px;
   margin: auto;
 
   @include tablet {
@@ -146,7 +146,7 @@
 }
 
 .checkout-step-3 {
-  width: 70rem;
+  width: 700px;
   margin: auto;
 
   @include tablet {

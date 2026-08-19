@@ -1,5 +1,5 @@
 .basket {
-  width: 60rem;
+  width: 600px;
   height: 100vh;
   background: $white;
   position: fixed;
@@ -104,7 +104,7 @@
 }
 
 .basket-item-price {
-  margin-right: 2rem;
+  margin-right: 20px;
 }
 
 .basket-item-name {
@@ -171,7 +171,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 15px;
 }
 
 .basket-control {

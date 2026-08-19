@@ -67,7 +67,7 @@ const Search = ({ match }) => {
       <div className="loader">
         <h4>Searching Product...</h4>
         <br />
-        <LoadingOutlined style={{ fontSize: '3rem' }} />
+        <LoadingOutlined style={{ fontSize: '30px' }} />
       </div>
     </main>
   );
