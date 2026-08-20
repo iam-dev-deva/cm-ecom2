@@ -52,6 +52,17 @@ const ViewProduct = () => {
     addToBasket({ ...product, selectedColor, selectedSize: selectedSize || product.sizes[0] });
   };
 
+  const productSpecs = [
+    ['Product Code', product?.productCode],
+    ['Model', product?.model],
+    ['Material', product?.material],
+    ['Colour', product?.color],
+    ['Size', product?.size],
+    ['Dimensions', product?.dimensions?.length && `${product.dimensions.length} x ${product.dimensions.width} x ${product.dimensions.height} ${product.dimensions.unit}`],
+    ['Weight', product?.weight && `${product.weight} ${product.weightUnit}`],
+    ['Country of Origin', product?.countryOfOrigin]
+  ].filter(([, value]) => value !== null && value !== undefined && value !== '');
+
   return (
     <main className="content">
       {isLoading && (
@@ -103,21 +114,25 @@ const ViewProduct = () => {
               <span className="text-subtle">{product.brand}</span>
               <h1 className="margin-top-0">{product.name}</h1>
               <span>{product.description}</span>
+              {product.bulletPoint && (
+                <p className="product-modal-bullet-point">{product.bulletPoint}</p>
+              )}
               <br />
               <br />
               <div className="divider" />
               <br />
-              <div>
-                <span className="text-subtle">Lens Width and Frame Size</span>
+              {product.sizes.length > 0 && <div>
+                <span className="text-subtle">Select Size</span>
                 <br />
                 <br />
                 <Select
                   placeholder="--Select Size--"
                   onChange={onSelectedSizeChange}
-                  options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size} mm`, value: size }))}
+                  options={product.sizes.map((size) => ({ label: size, value: size }))}
                   styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
+                   isSearchable={false}
                 />
-              </div>
+              </div>}
               <br />
               {product.availableColors.length >= 1 && (
                 <div>
@@ -130,7 +145,12 @@ const ViewProduct = () => {
                   />
                 </div>
               )}
-              <h1>{displayMoney(product.price)}</h1>
+              <div className="product-modal-pricing">
+                <h1>{displayMoney(product.price)}</h1>
+                {product.mrp > product.price && (
+                  <span className="text-strike text-subtle">MRP {displayMoney(product.mrp)}</span>
+                )}
+              </div>
               <div className="product-modal-action">
                 <button
                   className={`button button-small ${isItemOnBasket(product.id) ? 'button-border button-border-gray' : ''}`}
@@ -140,6 +160,19 @@ const ViewProduct = () => {
                   {isItemOnBasket(product.id) ? 'Remove From Basket' : 'Add To Basket'}
                 </button>
               </div>
+              {productSpecs.length > 0 && (
+                <div className="product-modal-specifications">
+                  <h3>Product Details</h3>
+                  <dl>
+                    {productSpecs.map(([label, value]) => (
+                      <div key={label}>
+                        <dt>{label}</dt>
+                        <dd>{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              )}
             </div>
           </div>
           <div style={{ marginTop: '100px' }}>

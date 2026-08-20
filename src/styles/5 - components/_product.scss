@@ -298,6 +298,100 @@
   object-fit: contain;
 }
 
+.product-modal-bullet-point {
+  margin: $m-size 0 0;
+  padding-left: $m-size;
+  border-left: 3px solid $black;
+  color: $gray-20;
+}
+
+.product-modal-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: $m-size;
+  margin-top: $m-size;
+
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+.product-modal-specifications {
+  margin-top: $l-size;
+
+  h3 {
+    margin-bottom: $s-size;
+  }
+
+  dl {
+    margin: 0;
+  }
+
+  dl > div {
+    display: flex;
+    justify-content: space-between;
+    gap: $m-size;
+    padding: $s-size 0;
+    border-bottom: 1px solid #e1e1e1;
+  }
+
+  dt {
+    color: $gray-20;
+  }
+
+  dd {
+    margin: 0;
+    text-align: right;
+  }
+}
+
+.product-modal-bullet-point {
+  margin: $m-size 0 0;
+  padding-left: $m-size;
+  border-left: 3px solid $black;
+  color: $gray-20;
+}
+
+.product-modal-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: $m-size;
+  margin-top: $m-size;
+
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+.product-modal-specifications {
+  margin-top: $l-size;
+
+  h3 {
+    margin-bottom: $s-size;
+  }
+
+  dl {
+    margin: 0;
+  }
+
+  dl > div {
+    display: flex;
+    justify-content: space-between;
+    gap: $m-size;
+    padding: $s-size 0;
+    border-bottom: 1px solid #e1e1e1;
+  }
+
+  dt {
+    color: $gray-20;
+  }
+
+  dd {
+    margin: 0;
+    text-align: right;
+  }
+}
+
 .product-modal-details {
   width: 500px;
   padding: $l-size;
@@ -528,6 +622,7 @@
   display: flex;
   gap: 20px;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-behavior: smooth;
   padding: 5px 0 10px;
   width: 100%;
@@ -590,7 +685,7 @@
 .product-display-img {
   width: 100%;
   height: 200px;
-  background: #f1f1f1;
+  // background: #f1f1f1;
   position: relative;
   overflow: hidden;
 

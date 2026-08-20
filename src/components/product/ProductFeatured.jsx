@@ -27,7 +27,7 @@ const ProductFeatured = ({ product }) => {
           <h2>{product.ItemName || <Skeleton width={80} />}</h2>
           <p className="text-subtle text-italic">
             {product.MRP && <span className="text-strike">₹{product.MRP.toFixed(2)}</span>}{' '}
-            {product.Rate || <Skeleton width={40} />}
+            ₹{product.Rate || <Skeleton width={40} />}
           </p>
         </div>
       </div>
