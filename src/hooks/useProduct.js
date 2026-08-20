@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import productService from '@/services/productService';
 import useDidMount from './useDidMount';
 
-const useProduct = (id) => {
+const useProduct = (id, productCode) => {
   const storeProduct = useSelector((state) => state.products.items.find((item) => item.id === id));
 
   const [product, setProduct] = useState(storeProduct);
@@ -21,7 +21,7 @@ const useProduct = (id) => {
 
         setLoading(true);
         setError(null);
-        const data = await productService.getSingleProduct(id);
+        const data = await productService.getSingleProduct(id, productCode);
 
         if (didMount) {
           setProduct(data || null);
@@ -36,7 +36,7 @@ const useProduct = (id) => {
     };
 
     loadProduct();
-  }, [didMount, id, storeProduct]);
+  }, [didMount, id, productCode, storeProduct]);
 
   return { product, isLoading, error };
 };

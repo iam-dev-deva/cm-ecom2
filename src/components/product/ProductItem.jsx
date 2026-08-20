@@ -17,7 +17,7 @@ const ProductItem = ({
     if (!product) return;
 
     if (product.ProductID) {
-      history.push(`/product/${product.ProductID}`);
+      history.push(`/product/${product.ProductID}/${product.ProductCode || ''}`);
     }
   };
   console.log(product);
@@ -26,7 +26,24 @@ const ProductItem = ({
   const itemOnBasket = isItemOnBasket ? isItemOnBasket(product.ProductID) : false;
 
   const handleAddToBasket = () => {
-    if (addToBasket) addToBasket({ ...product, selectedSize: product.sizes[0] });
+    if (!addToBasket) return;
+
+    const sizes = product.sizes || (product.Size ? String(product.Size).split(',').map((size) => size.trim()) : []);
+    const availableColors = product.availableColors
+      || (product.Color ? String(product.Color).split(',').map((color) => color.trim()) : []);
+
+    addToBasket({
+      ...product,
+      id: product.id || product.ProductID,
+      name: product.name || product.ItemName,
+      brand: product.brand || product.BrandName,
+      price: product.price ?? product.Rate ?? product.YourPrice ?? product.OfferRate,
+      image: product.image || product.FrontImageFile,
+      sizes,
+      availableColors,
+      quantity: product.quantity || 1,
+      selectedSize: sizes[0] || ''
+    });
   };
 
   return (

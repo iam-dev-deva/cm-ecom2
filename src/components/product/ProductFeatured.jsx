@@ -9,7 +9,7 @@ const ProductFeatured = ({ product }) => {
   const onClickItem = () => {
     if (!product) return;
 
-    history.push(`/product/${product.ProductID}`);
+    history.push(`/product/${product.ProductID}/${product.ProductCode || ''}`);
   };
 
   return (

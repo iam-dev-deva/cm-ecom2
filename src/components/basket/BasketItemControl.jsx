@@ -6,15 +6,17 @@ import { addQtyItem, minusQtyItem } from '@/redux/actions/basketActions';
 
 const BasketItemControl = ({ product }) => {
   const dispatch = useDispatch();
+  const quantity = Number(product.quantity) || 1;
+  const maxQuantity = Number(product.maxQuantity) || Infinity;
 
   const onAddQty = () => {
-    if (product.quantity < product.maxQuantity) {
+    if (quantity < maxQuantity) {
       dispatch(addQtyItem(product.id));
     }
   };
 
   const onMinusQty = () => {
-    if ((product.maxQuantity >= product.quantity) && product.quantity !== 0) {
+    if (quantity > 1) {
       dispatch(minusQtyItem(product.id));
     }
   };
@@ -23,7 +25,7 @@ const BasketItemControl = ({ product }) => {
     <div className="basket-item-control">
       <button
         className="button button-border button-border-gray button-small basket-control basket-control-add"
-        disabled={product.maxQuantity === product.quantity}
+        disabled={quantity >= maxQuantity}
         onClick={onAddQty}
         type="button"
       >
@@ -31,7 +33,7 @@ const BasketItemControl = ({ product }) => {
       </button>
       <button
         className="button button-border button-border-gray button-small basket-control basket-control-minus"
-        disabled={product.quantity === 1}
+        disabled={quantity <= 1}
         onClick={onMinusQty}
         type="button"
       >

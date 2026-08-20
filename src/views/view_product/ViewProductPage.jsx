@@ -15,8 +15,8 @@ import { Link, useParams } from 'react-router-dom';
 import Select from 'react-select';
 
 const ViewProduct = () => {
-  const { id } = useParams();
-  const { product, isLoading, error } = useProduct(id);
+  const { id, productCode } = useParams();
+  const { product, isLoading, error } = useProduct(id, productCode);
   const { addToBasket, isItemOnBasket } = useBasket(id);
   useScrollTop();
   useDocumentTitle(`View ${product?.name || 'Item'}`);

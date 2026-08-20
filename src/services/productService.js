@@ -2,6 +2,30 @@ import api from './api';
 
 const PRODUCTS_PER_PAGE = 12;
 
+const normalizeProductDetails = (product) => {
+  if (!product) return null;
+
+  const imageUrls = [
+    product.FrontImageFile,
+    product.BackImageFile,
+    product.RightImageFile,
+    product.LeftImageFile
+  ].filter(Boolean);
+
+  return {
+    ...product,
+    id: product.ProductID,
+    name: product.ItemName,
+    brand: product.BrandName,
+    description: product.ProductDescription,
+    price: product.YourPrice || product.OfferingSalePrice || product.MaximumRetailPrice,
+    image: product.FrontImageFile,
+    imageCollection: [...new Set(imageUrls)].map((url, index) => ({ id: `${product.ProductID}-${index}`, url })),
+    sizes: product.Size ? String(product.Size).split(',').map((size) => size.trim()) : [],
+    availableColors: product.Color ? String(product.Color).split(',').map((color) => color.trim()) : []
+  };
+};
+
 // Builds a multipart form from a product payload, so the main image,
 // the image collection, and plain fields all travel in one request.
 // The backend is expected to store the files and respond with their URLs.
@@ -47,11 +71,25 @@ const productService = {
     };
   },
 
-  // GET /products/:id -> product
-  getSingleProduct: async (id) => {
-    const { data } = await api.get(`/products/${id}`);
+  // GET https://rudra.circlemark.in/ProductServices/api/Products/GetSingleProductDetails -> product
+  getSingleProduct: async (id, productCode) => {
+    const { data } = await api.get('https://rudra.circlemark.in/ProductServices/api/Products/GetSingleProductDetails', {
+      params: { CompId: 1, ProductId: id, ProductCode: productCode }
+    });
 
-    return data;
+    let product = Array.isArray(data?.Data) ? data.Data[0] : data?.Data || data;
+    const hasUsableImage = product?.FrontImageFile && !product.FrontImageFile.endsWith('/');
+
+    if (product && !hasUsableImage && product.CategoryId) {
+      const categoryProducts = await productService.getProductsByCategory(product.CategoryId);
+      const categoryProduct = categoryProducts.find((item) => item.ProductID === product.ProductID);
+
+      if (categoryProduct?.FrontImageFile) {
+        product = { ...product, FrontImageFile: categoryProduct.FrontImageFile };
+      }
+    }
+
+    return normalizeProductDetails(product);
   },
 
   // GET /products/search?q= -> { products }
