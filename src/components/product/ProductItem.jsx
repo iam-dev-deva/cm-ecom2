@@ -36,7 +36,7 @@ const ProductItem = ({
       ...product,
       id: product.id || product.ProductID,
       name: product.name || product.ItemName,
-      brand: product.brand || product.BrandName,
+      brand: product.brand || product.BrandName || "Brand",
       price: product.price ?? product.Rate ?? product.YourPrice ?? product.OfferRate,
       image: product.image || product.FrontImageFile,
       sizes,

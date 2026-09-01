@@ -3,6 +3,7 @@ export { default as AdminSideBar } from './AdminSidePanel';
 export { default as Badge } from './Badge';
 export { default as Boundary } from './Boundary';
 export { default as ColorChooser } from './ColorChooser';
+export { default as FeaturesSection } from './FeaturesSection';
 export { default as Filters } from './Filters';
 export { default as FiltersToggle } from './FiltersToggle';
 export { default as Footer } from './Footer';
@@ -14,4 +15,3 @@ export { default as Navigation } from './Navigation';
 export { default as Preloader } from './Preloader';
 export { default as PriceRange } from './PriceRange';
 export { default as SearchBar } from './SearchBar';
-

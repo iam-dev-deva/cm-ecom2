@@ -1,5 +1,5 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { MessageDisplay } from '@/components/common';
+import { MessageDisplay, FeaturesSection } from '@/components/common';
 import { ProductSlider } from '@/components/product';
 import { FEATURED_PRODUCTS, RECOMMENDED_PRODUCTS, SHOP, NEW_PRODUCTS } from '@/constants/routes';
 import { IMAGES } from '@/constants/imageUrls';
@@ -230,6 +230,18 @@ const HomePage = () => {
             />
           )}
         </div>
+        <div className="blk_section-container">
+          <div className="blk_section">
+            <h2>Welcome to Our Bulk Order Section</h2>
+            <p>Are you looking to purchase our products in bulk? We offer special discounts and dedicated support for bulk orders. Simply fill out the form below, and we'll get back to you with pricing and availability.</p>
+            <Link to="/bulk-order" className="button" style={{ "max-width": "300px" }}>
+              Bulk Order Request &nbsp;
+              <ArrowRightOutlined />
+            </Link>
+          </div>
+
+        </div>
+        <FeaturesSection />
       </div>
     </main>
   );
