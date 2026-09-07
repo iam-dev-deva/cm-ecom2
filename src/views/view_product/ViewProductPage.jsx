@@ -53,7 +53,7 @@ const ViewProduct = () => {
   };
 
   const productSpecs = [
-    ['Product Code', product?.productCode],
+    // ['Product Code', product?.productCode],
     ['Model', product?.model],
     ['Material', product?.material],
     ['Colour', product?.color],

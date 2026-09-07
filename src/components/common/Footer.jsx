@@ -71,7 +71,7 @@ const Footer = () => {
           <div className="footer-contact">
             <p>
               <EnvironmentOutlined className="footer-icon" />
-              33, S Usman Road, near bus terminus, T. Nagar, Chennai, Tamil Nadu 600017
+              7, Chromepet, Chennai, Tamil Nadu 600096
             </p>
             <p>
               <PhoneOutlined className="footer-icon" />
@@ -99,7 +99,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="footer-section">
+        {/* <div className="footer-section">
           <h3 className="footer-section-title">Popular Link</h3>
           <ul className="footer-links">
             {footerLinks.popular.map((link) => (
@@ -108,18 +108,8 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
 
-        <div className="footer-section">
-          <h3 className="footer-section-title">For Consumers</h3>
-          <ul className="footer-links">
-            {footerLinks.consumers.map((link) => (
-              <li key={link.label}>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
 
         <div className="footer-section">
           <h3 className="footer-section-title">Categories</h3>
@@ -132,8 +122,19 @@ const Footer = () => {
           </ul>
           <p className="footer-more">and many more..</p>
         </div>
+        
+        <div className="footer-section">
+          <h3 className="footer-section-title">For Consumers</h3>
+          <ul className="footer-links">
+            {footerLinks.consumers.map((link) => (
+              <li key={link.label}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-
+{/* 
       <div className="footer-payment">
         <p className="footer-payment-label">Payment Partners</p>
         <div className="footer-payment-methods">
@@ -150,7 +151,7 @@ const Footer = () => {
             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" />
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="footer-bottom">
         <p className="footer-copyright">© {currentYear}  CircleMark. Inc. ALL RIGHT RESERVED</p>

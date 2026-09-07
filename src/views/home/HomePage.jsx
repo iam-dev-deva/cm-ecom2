@@ -230,7 +230,7 @@ const HomePage = () => {
             />
           )}
         </div>
-        <div className="blk_section-container">
+        {/* <div className="blk_section-container">
           <div className="blk_section">
             <h2>Welcome to Our Bulk Order Section</h2>
             <p>Are you looking to purchase our products in bulk? We offer special discounts and dedicated support for bulk orders. Simply fill out the form below, and we'll get back to you with pricing and availability.</p>
@@ -240,7 +240,7 @@ const HomePage = () => {
             </Link>
           </div>
 
-        </div>
+        </div> */}
         <FeaturesSection />
       </div>
     </main>
